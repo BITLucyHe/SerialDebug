@@ -6,27 +6,8 @@
 	objectVersion = 77;
 	objects = {
 
-/* Begin PBXContainerItemProxy section */
-		DC7ECD442E1A595600F7A479 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = DC7ECD2D2E1A595500F7A479 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DC7ECD342E1A595500F7A479;
-			remoteInfo = SerialDebug;
-		};
-		DC7ECD4E2E1A595600F7A479 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = DC7ECD2D2E1A595500F7A479 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DC7ECD342E1A595500F7A479;
-			remoteInfo = SerialDebug;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		DC7ECD352E1A595500F7A479 /* SerialDebug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SerialDebug.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		DC7ECD432E1A595600F7A479 /* SerialDebugTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SerialDebugTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		DC7ECD4D2E1A595600F7A479 /* SerialDebugUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SerialDebugUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -39,20 +20,6 @@
 
 /* Begin PBXFrameworksBuildPhase section */
 		DC7ECD322E1A595500F7A479 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		DC7ECD402E1A595600F7A479 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		DC7ECD4A2E1A595600F7A479 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -74,8 +41,6 @@
 			isa = PBXGroup;
 			children = (
 				DC7ECD352E1A595500F7A479 /* SerialDebug.app */,
-				DC7ECD432E1A595600F7A479 /* SerialDebugTests.xctest */,
-				DC7ECD4D2E1A595600F7A479 /* SerialDebugUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -105,46 +70,6 @@
 			productReference = DC7ECD352E1A595500F7A479 /* SerialDebug.app */;
 			productType = "com.apple.product-type.application";
 		};
-		DC7ECD422E1A595600F7A479 /* SerialDebugTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = DC7ECD5A2E1A595600F7A479 /* Build configuration list for PBXNativeTarget "SerialDebugTests" */;
-			buildPhases = (
-				DC7ECD3F2E1A595600F7A479 /* Sources */,
-				DC7ECD402E1A595600F7A479 /* Frameworks */,
-				DC7ECD412E1A595600F7A479 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				DC7ECD452E1A595600F7A479 /* PBXTargetDependency */,
-			);
-			name = SerialDebugTests;
-			packageProductDependencies = (
-			);
-			productName = SerialDebugTests;
-			productReference = DC7ECD432E1A595600F7A479 /* SerialDebugTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		DC7ECD4C2E1A595600F7A479 /* SerialDebugUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = DC7ECD5D2E1A595600F7A479 /* Build configuration list for PBXNativeTarget "SerialDebugUITests" */;
-			buildPhases = (
-				DC7ECD492E1A595600F7A479 /* Sources */,
-				DC7ECD4A2E1A595600F7A479 /* Frameworks */,
-				DC7ECD4B2E1A595600F7A479 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				DC7ECD4F2E1A595600F7A479 /* PBXTargetDependency */,
-			);
-			name = SerialDebugUITests;
-			packageProductDependencies = (
-			);
-			productName = SerialDebugUITests;
-			productReference = DC7ECD4D2E1A595600F7A479 /* SerialDebugUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -157,14 +82,6 @@
 				TargetAttributes = {
 					DC7ECD342E1A595500F7A479 = {
 						CreatedOnToolsVersion = 16.4;
-					};
-					DC7ECD422E1A595600F7A479 = {
-						CreatedOnToolsVersion = 16.4;
-						TestTargetID = DC7ECD342E1A595500F7A479;
-					};
-					DC7ECD4C2E1A595600F7A479 = {
-						CreatedOnToolsVersion = 16.4;
-						TestTargetID = DC7ECD342E1A595500F7A479;
 					};
 				};
 			};
@@ -183,28 +100,12 @@
 			projectRoot = "";
 			targets = (
 				DC7ECD342E1A595500F7A479 /* SerialDebug */,
-				DC7ECD422E1A595600F7A479 /* SerialDebugTests */,
-				DC7ECD4C2E1A595600F7A479 /* SerialDebugUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		DC7ECD332E1A595500F7A479 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		DC7ECD412E1A595600F7A479 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		DC7ECD4B2E1A595600F7A479 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -221,34 +122,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DC7ECD3F2E1A595600F7A479 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		DC7ECD492E1A595600F7A479 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		DC7ECD452E1A595600F7A479 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = DC7ECD342E1A595500F7A479 /* SerialDebug */;
-			targetProxy = DC7ECD442E1A595600F7A479 /* PBXContainerItemProxy */;
-		};
-		DC7ECD4F2E1A595600F7A479 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = DC7ECD342E1A595500F7A479 /* SerialDebug */;
-			targetProxy = DC7ECD4E2E1A595600F7A479 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		DC7ECD552E1A595600F7A479 /* Debug */ = {
@@ -376,19 +250,24 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = SerialDebug/SerialDebug.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 6TUKVU7P77;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "串口调试工具";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 14.6;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.lucyhe.SerialDebug;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -403,93 +282,30 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = SerialDebug/SerialDebug.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 6TUKVU7P77;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "串口调试工具";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 14.6;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.lucyhe.SerialDebug;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-			};
-			name = Release;
-		};
-		DC7ECD5B2E1A595600F7A479 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 6TUKVU7P77;
-				GENERATE_INFOPLIST_FILE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 15.5;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.lucyhe.SerialDebugTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SerialDebug.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/SerialDebug";
-			};
-			name = Debug;
-		};
-		DC7ECD5C2E1A595600F7A479 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 6TUKVU7P77;
-				GENERATE_INFOPLIST_FILE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 15.5;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.lucyhe.SerialDebugTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SerialDebug.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/SerialDebug";
-			};
-			name = Release;
-		};
-		DC7ECD5E2E1A595600F7A479 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 6TUKVU7P77;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.lucyhe.SerialDebugUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TEST_TARGET_NAME = SerialDebug;
-			};
-			name = Debug;
-		};
-		DC7ECD5F2E1A595600F7A479 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 6TUKVU7P77;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.lucyhe.SerialDebugUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TEST_TARGET_NAME = SerialDebug;
 			};
 			name = Release;
 		};
@@ -510,24 +326,6 @@
 			buildConfigurations = (
 				DC7ECD582E1A595600F7A479 /* Debug */,
 				DC7ECD592E1A595600F7A479 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		DC7ECD5A2E1A595600F7A479 /* Build configuration list for PBXNativeTarget "SerialDebugTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				DC7ECD5B2E1A595600F7A479 /* Debug */,
-				DC7ECD5C2E1A595600F7A479 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		DC7ECD5D2E1A595600F7A479 /* Build configuration list for PBXNativeTarget "SerialDebugUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				DC7ECD5E2E1A595600F7A479 /* Debug */,
-				DC7ECD5F2E1A595600F7A479 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
