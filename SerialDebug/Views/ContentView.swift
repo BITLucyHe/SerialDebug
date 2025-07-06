@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Combine
 
 struct ContentView: View {
     @StateObject private var serialManager = SerialManager()
@@ -14,9 +15,17 @@ struct ContentView: View {
     @State private var showingAlert = false
     @State private var alertMessage = ""
     
+    @State private var isAutoSendEnabled = false
+    @State private var autoSendInterval = "1000" // ms
+    @State private var autoSendCancellable: AnyCancellable?
+    
     var body: some View {
         NavigationSplitView(sidebar: {
-            SidebarView(serialManager: serialManager)
+            SidebarView(
+                serialManager: serialManager,
+                isAutoSendEnabled: $isAutoSendEnabled,
+                autoSendInterval: $autoSendInterval
+            )
                 .navigationSplitViewColumnWidth(min: 200, ideal: 250, max: 300)
         }, detail: {
             ChatView(
@@ -27,7 +36,7 @@ struct ContentView: View {
             )
         })
         .navigationTitle(serialManager.isConnected && serialManager.connectedPort != nil ? serialManager.connectedPort! : "串口调试工具")
-        .frame(minWidth: 900, minHeight: 550)
+        .frame(minWidth: 900, minHeight: 620)
         .onAppear {
             setupSerialManager()
         }
@@ -60,7 +69,11 @@ struct ContentView: View {
                 )
                 messages.append(message)
             }
+            setupAutoSendTimer()
         }
+        .onChange(of: isAutoSendEnabled) { _, _ in setupAutoSendTimer() }
+        .onChange(of: messageText) { _, _ in setupAutoSendTimer() }
+        .onChange(of: autoSendInterval) { _, _ in setupAutoSendTimer() }
     }
     
     private func setupSerialManager() {
@@ -99,6 +112,24 @@ struct ContentView: View {
         
         // 发送数据到串口
         serialManager.sendString(text + "\r\n")
+    }
+    
+    private func setupAutoSendTimer() {
+        autoSendCancellable?.cancel()
+
+        guard isAutoSendEnabled,
+              serialManager.isConnected,
+              !messageText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty,
+              let interval = Double(autoSendInterval),
+              interval > 0 else {
+            return
+        }
+
+        autoSendCancellable = Timer.publish(every: interval / 1000.0, on: .main, in: .common)
+            .autoconnect()
+            .sink { _ in
+                sendMessage(messageText)
+            }
     }
 }
 

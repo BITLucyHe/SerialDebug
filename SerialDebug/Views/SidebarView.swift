@@ -9,6 +9,9 @@ import SwiftUI
 
 struct SidebarView: View {
     @ObservedObject var serialManager: SerialManager
+    @Binding var isAutoSendEnabled: Bool
+    @Binding var autoSendInterval: String
+    
     @State private var selectedPort: String? = nil
     @State private var baudRate = "9600"
     @State private var dataBits = "8"
@@ -195,6 +198,31 @@ struct SidebarView: View {
                         .buttonStyle(.bordered)
                         .disabled(serialManager.isConnected)
                         .opacity(serialManager.isConnected ? 0.6 : 1.0)
+                    }
+                }
+            }
+            
+            Divider()
+            
+            // 自动发送控制
+            VStack(alignment: .leading, spacing: 8) {
+                Text("自动发送")
+                    .font(.headline)
+                    .foregroundColor(.secondary)
+                
+                VStack(alignment: .leading, spacing: 12) {
+                    Toggle("启用", isOn: $isAutoSendEnabled)
+                        .disabled(!serialManager.isConnected)
+                        .opacity(!serialManager.isConnected ? 0.6 : 1.0)
+
+                    HStack {
+                        Text("间隔 (ms)")
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                        
+                        TextField("", text: $autoSendInterval)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .frame(width: 80)
                     }
                 }
             }
