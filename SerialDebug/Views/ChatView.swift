@@ -11,8 +11,10 @@ struct ChatView: View {
     @Binding var messages: [ChatMessage]
     @Binding var messageText: String
     let isConnected: Bool
+    let onSendMessage: (String) -> Void
     @State private var hexMode = false
     @State private var autoScroll = true
+    @State private var showingClearAlert = false
     
     var body: some View {
         VStack(spacing: 0) {
@@ -27,9 +29,21 @@ struct ChatView: View {
                     }
                     .padding()
                 }
-                .onChange(of: messages.count) {
+                .onChange(of: messages) { _, _ in
+                    // 当消息数组发生变化时，自动滚动到底部
                     if autoScroll && !messages.isEmpty {
-                        withAnimation(.easeOut(duration: 0.3)) {
+                        // 添加小延迟确保视图已经更新
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                            withAnimation(.easeOut(duration: 0.3)) {
+                                proxy.scrollTo(messages.last?.id, anchor: .bottom)
+                            }
+                        }
+                    }
+                }
+                .onAppear {
+                    // 初始加载时滚动到底部
+                    if autoScroll && !messages.isEmpty {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                             proxy.scrollTo(messages.last?.id, anchor: .bottom)
                         }
                     }
@@ -56,7 +70,7 @@ struct ChatView: View {
                     .help("设置")
                     
                     Button(action: {
-                        messages.removeAll()
+                        showingClearAlert = true
                     }) {
                         Image(systemName: "trash")
                             .font(.system(.body, weight: .bold))
@@ -67,6 +81,7 @@ struct ChatView: View {
                     .clipShape(Circle())
                     .buttonStyle(.plain)
                     .help("清空消息")
+                    .disabled(messages.isEmpty)
                 }
                 
                 // 输入框
@@ -106,20 +121,21 @@ struct ChatView: View {
             .padding()
             .animation(.easeInOut(duration: 0.2), value: messageText.isEmpty)
         }
+        .alert("确认清空", isPresented: $showingClearAlert) {
+            Button("取消", role: .cancel) { }
+            Button("确定", role: .destructive) {
+                messages.removeAll()
+            }
+        } message: {
+            Text("确定要清空所有消息吗？此操作不可撤销。")
+        }
     }
     
     private func sendMessage() {
         let trimmedText = messageText.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmedText.isEmpty && isConnected else { return }
         
-        let newMessage = ChatMessage(content: trimmedText, isReceived: false, timestamp: Date())
-        messages.append(newMessage)
+        onSendMessage(trimmedText)
         messageText = ""
-        
-        // 模拟接收响应
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            let response = ChatMessage(content: "OK", isReceived: true, timestamp: Date())
-            messages.append(response)
-        }
     }
 } 

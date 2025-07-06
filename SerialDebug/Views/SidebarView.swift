@@ -8,16 +8,14 @@
 import SwiftUI
 
 struct SidebarView: View {
+    @ObservedObject var serialManager: SerialManager
     @State private var selectedPort: String? = nil
-    @State private var availablePorts = ["COM1", "COM3", "USB Serial Port"]
-    @Binding var isConnected: Bool
-    @Binding var connectedPort: String?
     @State private var baudRate = "9600"
     @State private var dataBits = "8"
     @State private var parity = "无"
     @State private var stopBits = "1"
     
-    let baudRates = ["9600", "19200", "38400", "57600", "115200"]
+    let baudRates = ["9600", "19200", "38400", "57600", "115200", "230400"]
     let dataBitOptions = ["5", "6", "7", "8"]
     let parityOptions = ["无", "奇校验", "偶校验"]
     let stopBitOptions = ["1", "1.5", "2"]
@@ -32,10 +30,25 @@ struct SidebarView: View {
                 
                 HStack {
                     Circle()
-                        .fill(isConnected ? .green : .red)
+                        .fill(serialManager.isConnected ? .green : .red)
                         .frame(width: 8, height: 8)
-                    Text(isConnected ? "已连接" : "未连接")
+                    Text(serialManager.isConnected ? "已连接" : "未连接")
                         .font(.subheadline)
+                    
+                    if let port = serialManager.connectedPort {
+                        Text("(\(port))")
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                    }
+                }
+                
+                // 显示连接错误
+                if let error = serialManager.connectionError {
+                    Text(error)
+                        .font(.caption)
+                        .foregroundColor(.red)
+                        .padding(.top, 4)
+                        .textSelection(.enabled)
                 }
             }
             
@@ -55,14 +68,14 @@ struct SidebarView: View {
                         
                         Picker("", selection: $selectedPort) {
                             Text("选择端口").tag(nil as String?)
-                            ForEach(availablePorts, id: \.self) { port in
+                            ForEach(serialManager.availablePorts, id: \.self) { port in
                                 Text(port).tag(port as String?)
                             }
                         }
                         .pickerStyle(DefaultPickerStyle())
                         .labelsHidden()
-                        .disabled(isConnected)
-                        .opacity(isConnected ? 0.6 : 1.0)
+                        .disabled(serialManager.isConnected)
+                        .opacity(serialManager.isConnected ? 0.6 : 1.0)
                     }
                     
                     VStack(alignment: .leading, spacing: 6) {
@@ -77,8 +90,8 @@ struct SidebarView: View {
                         }
                         .pickerStyle(DefaultPickerStyle())
                         .labelsHidden()
-                        .disabled(isConnected)
-                        .opacity(isConnected ? 0.6 : 1.0)
+                        .disabled(serialManager.isConnected)
+                        .opacity(serialManager.isConnected ? 0.6 : 1.0)
                     }
                     
                     VStack(alignment: .leading, spacing: 6) {
@@ -93,8 +106,8 @@ struct SidebarView: View {
                         }
                         .pickerStyle(DefaultPickerStyle())
                         .labelsHidden()
-                        .disabled(isConnected)
-                        .opacity(isConnected ? 0.6 : 1.0)
+                        .disabled(serialManager.isConnected)
+                        .opacity(serialManager.isConnected ? 0.6 : 1.0)
                     }
                     
                     VStack(alignment: .leading, spacing: 6) {
@@ -109,8 +122,8 @@ struct SidebarView: View {
                         }
                         .pickerStyle(DefaultPickerStyle())
                         .labelsHidden()
-                        .disabled(isConnected)
-                        .opacity(isConnected ? 0.6 : 1.0)
+                        .disabled(serialManager.isConnected)
+                        .opacity(serialManager.isConnected ? 0.6 : 1.0)
                     }
                     
                     VStack(alignment: .leading, spacing: 6) {
@@ -125,8 +138,8 @@ struct SidebarView: View {
                         }
                         .pickerStyle(DefaultPickerStyle())
                         .labelsHidden()
-                        .disabled(isConnected)
-                        .opacity(isConnected ? 0.6 : 1.0)
+                        .disabled(serialManager.isConnected)
+                        .opacity(serialManager.isConnected ? 0.6 : 1.0)
                     }
                 }
             }
@@ -146,19 +159,22 @@ struct SidebarView: View {
                             .foregroundColor(.secondary)
                         
                         Button(action: {
-                            isConnected.toggle()
-                            connectedPort = isConnected ? selectedPort : nil
+                            if serialManager.isConnected {
+                                serialManager.disconnect()
+                            } else {
+                                connectToSerial()
+                            }
                         }) {
                             HStack {
-                                Image(systemName: isConnected ? "stop.circle.fill" : "play.circle.fill")
-                                Text(isConnected ? "断开连接" : "连接")
+                                Image(systemName: serialManager.isConnected ? "stop.circle.fill" : "play.circle.fill")
+                                Text(serialManager.isConnected ? "断开连接" : "连接")
                                 Spacer()
                             }
                             .frame(maxWidth: .infinity)
                         }
                         .buttonStyle(.borderedProminent)
-                        .tint(selectedPort == nil ? .gray : (isConnected ? .red : .accentColor))
-                        .disabled(selectedPort == nil)
+                        .tint(selectedPort == nil ? .gray : (serialManager.isConnected ? .red : .accentColor))
+                        .disabled(selectedPort == nil && !serialManager.isConnected)
                     }
                     
                     VStack(alignment: .leading, spacing: 6) {
@@ -167,7 +183,7 @@ struct SidebarView: View {
                             .foregroundColor(.secondary)
                         
                         Button(action: {
-                            // 刷新端口逻辑
+                            serialManager.refreshAvailablePorts()
                         }) {
                             HStack {
                                 Image(systemName: "arrow.clockwise")
@@ -177,8 +193,8 @@ struct SidebarView: View {
                             .frame(maxWidth: .infinity)
                         }
                         .buttonStyle(.bordered)
-                        .disabled(isConnected)
-                        .opacity(isConnected ? 0.6 : 1.0)
+                        .disabled(serialManager.isConnected)
+                        .opacity(serialManager.isConnected ? 0.6 : 1.0)
                     }
                 }
             }
@@ -187,5 +203,51 @@ struct SidebarView: View {
         }
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+        .onAppear {
+            // 自动选择第一个可用端口
+            if selectedPort == nil && !serialManager.availablePorts.isEmpty {
+                selectedPort = serialManager.availablePorts.first
+            }
+        }
+        .onChange(of: serialManager.availablePorts) { oldPorts, newPorts in
+            // 如果当前选择的端口不在新的端口列表中，自动选择第一个
+            if let current = selectedPort, !newPorts.contains(current) {
+                selectedPort = newPorts.first
+            } else if selectedPort == nil && !newPorts.isEmpty {
+                selectedPort = newPorts.first
+            }
+        }
+    }
+    
+    private func connectToSerial() {
+        guard let port = selectedPort else { return }
+        
+        // 构建串口配置
+        let config = SerialManager.SerialConfig(
+            baudRate: Int(baudRate) ?? 9600,
+            dataBits: Int(dataBits) ?? 8,
+            parity: getParityType(parity),
+            stopBits: getStopBitsType(stopBits)
+        )
+        
+        // 连接到串口
+        serialManager.connect(to: port, config: config)
+    }
+    
+    private func getParityType(_ parity: String) -> SerialManager.SerialConfig.Parity {
+        switch parity {
+        case "奇校验": return .odd
+        case "偶校验": return .even
+        default: return .none
+        }
+    }
+    
+    private func getStopBitsType(_ stopBits: String) -> SerialManager.SerialConfig.StopBits {
+        switch stopBits {
+        case "1": return .one
+        case "1.5": return .oneAndHalf
+        case "2": return .two
+        default: return .one
+        }
     }
 } 
