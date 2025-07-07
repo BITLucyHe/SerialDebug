@@ -1,0 +1,10 @@
+/* 
+  InfoPlist.strings
+  SerialDebug
+
+  Created by 何秋洋 on 2025/7/8.
+  
+*/
+
+"CFBundleDisplayName" = "串口调试工具";
+"CFBundleName" = "串口调试工具";

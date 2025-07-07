@@ -1,0 +1,10 @@
+/* 
+  InfoPlist.strings
+  SerialDebug
+
+  Created by 何秋洋 on 2025/7/8.
+  
+*/
+
+"CFBundleDisplayName" = "Serial Debug Tool";
+"CFBundleName" = "Serial Debug Tool";
