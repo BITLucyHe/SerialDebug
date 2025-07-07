@@ -223,6 +223,7 @@ struct SidebarView: View {
                         TextField("", text: $autoSendInterval)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                             .frame(width: 80)
+                            .disabled(isAutoSendEnabled)
                     }
                 }
             }
