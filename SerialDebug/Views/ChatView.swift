@@ -11,6 +11,7 @@ struct ChatView: View {
     @Binding var messages: [ChatMessage]
     @Binding var messageText: String
     let isConnected: Bool
+    @Binding var lineEndingType: LineEndingType
     let onSendMessage: (String) -> Void
     @State private var hexMode = false
     @State private var autoScroll = true
@@ -57,6 +58,14 @@ struct ChatView: View {
                     Menu {
                         Toggle("HEX显示", isOn: $hexMode)
                         Toggle("自动滚动", isOn: $autoScroll)
+                        
+                        Divider()
+                        
+                        Picker("回车符设置", selection: $lineEndingType) {
+                            ForEach(LineEndingType.allCases) { type in
+                                Text(type.displayName).tag(type)
+                            }
+                        }
                     } label: {
                         Image(systemName: "gearshape")
                             .font(.system(.body, weight: .bold))

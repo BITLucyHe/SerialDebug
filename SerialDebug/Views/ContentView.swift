@@ -18,6 +18,7 @@ struct ContentView: View {
     @State private var isAutoSendEnabled = false
     @State private var autoSendInterval = "1000" // ms
     @State private var autoSendCancellable: AnyCancellable?
+    @State private var lineEndingType: LineEndingType = .none
     
     var body: some View {
         NavigationSplitView(sidebar: {
@@ -32,6 +33,7 @@ struct ContentView: View {
                 messages: $messages,
                 messageText: $messageText,
                 isConnected: serialManager.isConnected,
+                lineEndingType: $lineEndingType,
                 onSendMessage: sendMessage
             )
         })
@@ -110,8 +112,8 @@ struct ContentView: View {
         )
         messages.append(message)
         
-        // 发送数据到串口
-        serialManager.sendString(text + "\r\n")
+        // 根据选择的回车符类型发送数据到串口
+        serialManager.sendString(text + lineEndingType.suffix)
     }
     
     private func setupAutoSendTimer() {
